@@ -52,6 +52,7 @@ module.exports = {
     const end        = opts.end        ;
     const channels   = opts.channels   ;
     const sampleRate = opts.sampleRate ;
+    const ffmpegPath = opts.ffmpeg !== undefined ? opts.ffmpeg : 'ffmpeg';
 
     const fileStart    = start   !== undefined ?        start / 1000 :         0 ;
     const fileEnd      = end     !== undefined ?        end   / 1000 : undefined ;
@@ -102,8 +103,8 @@ module.exports = {
     args.push('pipe:');
 
     return require('child_process')
-          .spawn('ffmpeg', args)
-          .stdout.pipe(getDecodeStream(opts));
+        .spawn(ffmpegPath, args)
+        .stdout.pipe(getDecodeStream(opts));
   },
 
 };
